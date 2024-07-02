@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if(isset($_SESSION['$UserName_emp'])){
@@ -9,7 +8,6 @@ else{
 }
 ?>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
 <head>
@@ -18,7 +16,7 @@ else{
     <meta name="robots" content="all,follow" />
 
     
-    <title>JOB PORTAL </title>
+    <title>jobportal.com</title>
     <meta name="description" content="..." />
     <meta name="keywords" content="..." />
     
@@ -81,34 +79,67 @@ include "menu.php"
 
             <!-- Article -->
             <div class="article">
-                <h2><span><a href="#">Welcome To Control Panel</a></span></h2>
-               
+                <h2><span><a href="#">Welcome <?php echo $_SESSION['$UserName_emp'];?></a></span></h2>
+               <?php
+$ID=$_SESSION['ID'];
+// Establish Connection with Database
+$con = mysqli_connect("localhost","root","","job");
 
-                <table width="100%" border="0">
+$sql = "select * from employer_reg where EmployerId ='".$ID."'  ";
+// Execute query
+$result = mysqli_query($con,$sql) or die( mysqli_error($con));
+// Loop through each records 
+$row = mysqli_fetch_array($result)
+?>
+                <table width="100%" border="1" cellspacing="2" cellpadding="2">
                   <tr>
-                    <td><div align="center"><img src="design/Home.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Profile.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Search.png" alt="" width="64" height="64" /></div></td>
+                    <td><strong>Company ID:</strong></td>
+                    <td><?php echo $row['EmployerId'];?></td>
                   </tr>
                   <tr>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="index.php"><strong>Home</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="Profile.php"><strong>Profile</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="ManageJob.php"><strong>Manage JOB</strong></a></div></td>
+                    <td><strong>Company Name:</strong></td>
+                    <td><?php echo $row['CompanyName'];?></td>
                   </tr>
                   <tr>
-                    <td><div align="center"><img src="design/Interview.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Feedback.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Log.png" alt="" width="64" height="64" /></div></td>
+                    <td><strong>Contact Person:</strong></td>
+                    <td><?php echo $row['ContactPerson'];?></td>
                   </tr>
                   <tr>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="ManageWalkin.php"><strong>Walkin</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="Application.php"><strong>Application</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="logout.php"><strong>Logout</strong></a></div></td>
+                    <td><strong>Address:</strong></td>
+                    <td><?php echo $row['Address'];?></td>
+                  </tr>
+                  <tr>
+                    <td><strong>City:</strong></td>
+                    <td><?php echo $row['City'];?></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email:</strong></td>
+                    <td><?php echo $row['Email'];?></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mobile:</strong></td>
+                    <td><?php echo $row['Mobile'];?></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Area of Work:</strong></td>
+                    <td><?php echo $row['Area_Work'];?></td>
+                  </tr>
+                  <tr>
+                    <td><strong>User Name:</strong></td>
+                    <td><?php echo $row['UserName'];?></td>
+                  </tr>
+                  
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td><a href="EditProfile.php?EmployerId=<?php echo $row['EmployerId']; ?>">Edit Profile</a></td>
                   </tr>
                 </table>
-                <p>&nbsp;</p>
+                <?php
+                mysqli_close($con);
+                ?>
+              <p>&nbsp;</p>
 
-              <p class="btn-more box noprint">&nbsp;</p>
+                <p class="btn-more box noprint">&nbsp;</p>
           </div> <!-- /article -->
 
             <hr class="noscreen" />

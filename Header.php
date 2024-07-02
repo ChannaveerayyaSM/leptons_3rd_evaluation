@@ -2,7 +2,7 @@
     <div id="header">
 
         <!-- Logotyp -->
-      
+     
         <hr class="noscreen" />          
 
         <!-- Quick links -->
@@ -11,6 +11,7 @@
             <hr />
         </div>
 
-      
+        <!-- Search -->
+       
 
     </div> <!-- /header -->

@@ -1,15 +1,4 @@
 
-<?php
-session_start();
-if(isset($_SESSION['$UserName_emp'])){
-
-} 
-else{
-		header('location:../index.php');
-}
-?>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
 <head>
@@ -55,7 +44,7 @@ include "menu.php"
             <hr class="noscreen" />
 
             <!-- Breadcrumbs -->
-            <p id="breadcrumbs">&nbsp;</p>
+            <p id="breadcrumbs">You are here: <a href="index.php">Home</a></p>
           <hr class="noscreen" />
             
         </div> <!-- /strip -->
@@ -83,29 +72,25 @@ include "menu.php"
             <div class="article">
                 <h2><span><a href="#">Welcome To Control Panel</a></span></h2>
                
-
-                <table width="100%" border="0">
-                  <tr>
-                    <td><div align="center"><img src="design/Home.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Profile.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Search.png" alt="" width="64" height="64" /></div></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="index.php"><strong>Home</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="Profile.php"><strong>Profile</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="ManageJob.php"><strong>Manage JOB</strong></a></div></td>
-                  </tr>
-                  <tr>
-                    <td><div align="center"><img src="design/Interview.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Feedback.png" alt="" width="64" height="64" /></div></td>
-                    <td><div align="center"><img src="design/Log.png" alt="" width="64" height="64" /></div></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="ManageWalkin.php"><strong>Walkin</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="Application.php"><strong>Application</strong></a></div></td>
-                    <td bgcolor="#A0B9F3"><div align="center"><a href="logout.php"><strong>Logout</strong></a></div></td>
-                  </tr>
-                </table>
+<?php
+$JobId=$_GET['JobId'];
+$JobSeekId=$_GET['JobSeekId'];
+$AppId=$_GET['AppId'];
+$Status="Call Latter Send";
+$Description=$_POST['txtDesc'];
+// Establish Connection with MYSQL
+$con = mysqli_connect("localhost","root","","job");
+// Select Database
+//mysql_select_db("job", $con);
+// Specify the query to Update Record
+$sql = "Update Application_Master set Status='".$Status."' ,Description='".$Description."' where ApplicationId=".$AppId." and JobId='".$JobId."' and JobSeekId='".$JobSeekId."'";
+// Execute query
+mysqli_query($con,$sql);
+// Close The Connection
+mysqli_close($con);
+echo '<script type="text/javascript">alert("Call Latter Send Succesfully");window.location=\'Application.php\';</script>';
+?>
+                
                 <p>&nbsp;</p>
 
               <p class="btn-more box noprint">&nbsp;</p>
